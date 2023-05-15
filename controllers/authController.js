@@ -4,7 +4,7 @@ import { BadRequestError, UnAuthenticatedError } from '../errors/index.js'
 import { createTokenUser, createJWT } from '../utils/index.js'
 
 const register = async (req, res) => {
-  const { email, uName, password, cPassword  } = req.body
+  const { email, uName, password, cPassword,roles  } = req.body
 
   const emailAlreadyExists = await User.findOne({ email })
   if (emailAlreadyExists) {
@@ -21,8 +21,9 @@ const register = async (req, res) => {
   }
 
   // first registered user is an admin
-  const isFirstAccount = (await User.countDocuments({})) === 0
-  const role = isFirstAccount ? 'admin' : 'user'
+ const isFirstAccount = (await User.countDocuments({})) === 0
+//  const selectedRole = roles || 'admin'
+ const role = isFirstAccount ? 'admin' : roles
 
   const user = await User.create({
     email,

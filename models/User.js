@@ -28,8 +28,7 @@ const UserSchema = new mongoose.Schema(
     },
     role: {
       type: String,
-      enum: ['admin', 'user'],
-      default: 'user',
+      enum: ['admin', 'student', 'tutor'],
     },
   },
   { timestamps: true }
@@ -47,5 +46,13 @@ UserSchema.methods.comparePassword = async function (canditatePassword) {
   const isMatch = await bcrypt.compare(canditatePassword, this.password)
   return isMatch
 }
+
+UserSchema.pre('save', async function (next) {
+  if (!this.role) {
+    this.role = 'student'
+  }
+  next()
+})
+
 
 export default mongoose.model('User', UserSchema)

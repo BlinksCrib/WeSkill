@@ -1,0 +1,18 @@
+BASE_URL: https://we-skill.vercel.app/api/v1
+
+Register routes
+path: /auth/register
+
+Things to send as object
+uName - username
+email - email 
+password - password
+cPassword - Confirm Password
+
+
+Login routes
+path: /auth/login
+
+Things to send as object
+uName - username
+password - password
