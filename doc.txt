@@ -8,6 +8,7 @@ uName - username
 email - email 
 password - password
 cPassword - Confirm Password
+roles - [tutor,student]
 
 
 Login routes

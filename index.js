@@ -15,11 +15,12 @@ import connectDB from './db/connect.js'
 
 // routers
 import authRouter from './routes/authRoutes.js'
+import videoRouter from './routes/videoRoutes.js'
 
 // middleware
 import notFoundMiddleware from './middleware/not-found.js'
 import errorHandlerMiddleware from './middleware/error-handler.js'
-// import authenticateUser from './middleware/authentication.js'
+import {authenticateUser} from './middleware/authentication.js'
 
 if (process.env.NODE_ENV !== 'production') {
   app.use(morgan('dev'))
@@ -35,8 +36,8 @@ app.use(mongoSanitize())
 // app.use(cookieParser(process.env.JWT_SECRET))
 app.use(cors())
 
-app.use('/api/v1/auth', authRouter) /
-  // app.use('/api/v1/jobs', authenticateUser, jobsRouter)
+app.use('/api/v1/auth', authRouter)
+  app.use('/api/v1/video', authenticateUser, videoRouter)
 
   app.use(notFoundMiddleware)
 app.use(errorHandlerMiddleware)
